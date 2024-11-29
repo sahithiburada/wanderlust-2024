@@ -1,5 +1,50 @@
 <% layout("/layouts/boilerplate") %>
 <style>
+    .form_body {
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 7px 15px rgba(0, 0, 0, 0.5); /* Initial shadow to lift form */
+    }
+    #previewContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px; /* Adjust spacing between images */
+        margin-bottom: 1rem; /* Spacing below the preview container */
+    }
+
+    .preview-image-container {
+        position: relative;
+        /* border: 2px solid #ddd; */
+        padding: 5px;
+        /* border-radius: 8px; */
+        overflow: hidden;
+        background-color: #d3d3d3; /* Background color for container */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for effect */
+        width: 9rem; /* Container width */
+        height: 7rem; /* Container height */
+    }
+
+    .preview-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Maintain aspect ratio, cover container */
+        border-radius: 4px;
+    }
+    .filter-tag{
+        display: inline-flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .indi-filter{
+        padding: 0.1rem 0 0.1rem 0.6rem;
+        background-color: #d3d3d3;
+        margin-left: 0.4rem;
+        border-radius: 3rem;
+        margin-bottom: 0.5rem;
+    }
+
     /* Form Container - Floating Effect */
     .dark-mode{
         .form_body {
@@ -13,7 +58,12 @@
         h3{
             color: #ffffff;
         }
-
+        .indi-filter{
+            background-color: #555555;
+        }
+        .indi-filter label{
+            color: #ffffff !important;
+        }
         .form-label {
             color: #ffffff;
         }
@@ -65,22 +115,21 @@
                 <div class="mb-3 listing_form">
                     <label for="description" class="form-label">Description</label>
                     <br>
-                    <textarea name="listing[description]" class="form-control" cols="30" rows="5" placeholder="Enter description....." required></textarea>
+                    <textarea name="listing[description]" id="list-description" class="form-control" cols="30" rows="5" placeholder="Enter description....." required></textarea>
+                    <small class="" id="des-error"></small>
                     <div class="invalid-feedback">Please add a description!</div>
                     <div class="valid-feedback">Looks good!</div>
                 </div>
                 <div class="mb-3 listing_form">
                     <label for="images" class="form-label">Upload Images</label>
-                    <br>
-                    <!-- multiple file uploads -->
-                    <input type="file" name="listing[image]" class="form-control" id="imageInput" multiple required>
-                    <div class="invalid-feedback">Please upload a image!</div>
-                    <small class="form-text text-muted">You can upload multiple images.</small>
+                    <input type="file" name="listing[image]" class="form-control" id="fileInput" multiple required>
+                    <div class="invalid-feedback">Please upload at least one image!</div>
+                    <small class="form-text text-muted">You can upload multiple <images id="fileError" class="">(Maximum 4)</images></small>
                     <div class="valid-feedback">Looks good!</div>
                 </div>
-
-                <!-- Image preview here -->
-                <div id="imagePreview" class="mb-3"></div>
+            
+                <!-- Image preview container -->
+                <div id="previewContainer" class="mb-3"></div>
 
                 <div class="row">
                     <div class="mb-3 col-3 listing_form">
@@ -107,8 +156,22 @@
                         <div class="valid-feedback">Looks good!</div>
                     </div>
                 </div>
-                
-                <br>
+                    <!-- Tags section -->
+                    <div class="mb-3 listing_form">
+                        <label for="tags" class="form-label">Tags</label>
+                        <br>
+                        <div class="filter-tag">
+                        <% tags.forEach(tag => { %>
+                            <div class="indi-filter">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input tag-checkbox" type="checkbox" name="listing[tags]" id="tag<%= tag %>" value="<%= tag %>">
+                                    <label class="form-check-label" for="tag<%= tag %>"><%= tag %></label>
+                                </div>
+                            </div>
+                        <% }) %>
+                        </div>
+                        <small class="form-text tag-alert">Maximum 3 tags are allowed!</small>
+                    </div>
                 <button class="btn btn-danger" name="saveButton" type="submit">ADD</button>
                 <br><br>
             </form>
@@ -117,26 +180,51 @@
 
     <!-- JS for image preview -->
     <script>
-        const imageInput = document.getElementById('imageInput');
-        const imagePreview = document.getElementById('imagePreview');
+        const filesMax = 4; // Maximum allowed files
+        const fileInput = document.getElementById("fileInput");
+        const fileList = []; // Array to hold selected files
 
-        imageInput.addEventListener('change', function() {
-            imagePreview.innerHTML = '';
-            const files = imageInput.files;
+        fileInput.addEventListener("change", function (event) {
+        const files = Array.from(event.target.files);
+        if (files.length + fileList.length > filesMax) {
+            fileList.length = 0; // Clear the file list array
+            displayPreview(); // Clear the preview display
+        }
+        else{
+            // Add new files to the fileList
+            fileList.push(...files);
 
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.style.maxWidth = '150px';
-                    img.style.margin = '10px';
-                    imagePreview.appendChild(img);
-                };
-
-                reader.readAsDataURL(file);
-            }
+            // Display preview and update the file input to include all selected files
+            displayPreview();
+            updateFileInput();
+        }
+        
         });
+
+        function displayPreview() {
+        // Display images in fileList as preview
+        const previewContainer = document.getElementById("previewContainer");
+        previewContainer.innerHTML = ""; // Clear existing content
+
+        fileList.forEach((file, index) => {
+            const imgContainer = document.createElement("div");
+            imgContainer.classList.add("preview-image-container"); // Add container class
+
+            const img = document.createElement("img");
+            img.src = URL.createObjectURL(file);
+            img.alt = `Image ${index + 1}`;
+            img.classList.add("preview-img"); // Add image class for additional styling
+
+            imgContainer.appendChild(img);
+            previewContainer.appendChild(imgContainer);
+        });
+        }
+
+        function updateFileInput() {
+        // Clear the original file input and set files from fileList
+        const dataTransfer = new DataTransfer();
+        fileList.forEach(file => dataTransfer.items.add(file));
+        fileInput.files = dataTransfer.files;
+        }
+
     </script>

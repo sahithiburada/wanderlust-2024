@@ -37,4 +37,3 @@ marker.getElement().addEventListener("mouseleave", () => {
   map.getCanvas().style.cursor = "";
   marker.togglePopup(); // Hide the popup when not hovering
 });
-

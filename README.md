@@ -2,11 +2,21 @@
 
 <img src="https://github.com/user-attachments/assets/e8059385-3570-49ab-a20b-127ad6b83ada" height=200  width=300 alt="WL"/>
 
-Welcome to **Wanderlust 2024**! 🌟 This project aims to provide a comprehensive platform for travel enthusiasts, offering features such as map integration 🗺️, user-generated content ✍️, and a seamless experience for discovering new destinations. ✈️✨
+Wanderlust is a comprehensive travel platform designed for adventurers and explorers who want to discover and share extraordinary places around the world. Built with the powerful MERN (MongoDB, Express, React, and Node.js) stack, Wanderlust offers a seamless and secure user experience for both casual travelers and serious wanderers.
+
+Our platform allows users to:✨
+
+* Create and Manage Listings: Add new travel destinations with rich details and photos, and keep track of your own adventures.<br>
+* Explore Listings: Discover unique spots shared by other users, complete with interactive maps powered by Mapbox.<br>
+* Review and Rate Experiences: Share your thoughts on destinations you've visited or learn from the experiences of others through our review system.<br>
+* Secure Authentication: Enjoy a safe browsing and sharing environment with user authentication handled by Passport.<br>
+* Interactive Maps: Visualize locations effortlessly with Mapbox integration, making it easier to plan your next getaway.<br>
+Wanderlust is all about making travel planning fun, efficient, and collaborative. Whether you’re adding a hidden gem or exploring a bustling city, our platform connects you to a global community of travelers. ✈️✨<br>
 
 Live Link: https://wanderlust-2024-tkqf.onrender.com/listing
 
  <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 
 ## 📈 GitHub Repository Stats
 | 🌟 **Stars** | 🍴 **Forks** | 🐛 **Issues** | 🔔 **Open PRs** | 🔕 **Closed PRs** | 🛠️ **Languages** | ✅ **Contributors** |
@@ -14,11 +24,12 @@ Live Link: https://wanderlust-2024-tkqf.onrender.com/listing
 | ![GitHub stars](https://img.shields.io/github/stars/Soujanya2004/wanderlust-2024) | ![forks](https://img.shields.io/github/forks/Soujanya2004/wanderlust-2024) | ![issues](https://img.shields.io/github/issues/Soujanya2004/wanderlust-2024?color=32CD32) | ![pull requests](https://img.shields.io/github/issues-pr/Soujanya2004/wanderlust-2024?color=FFFF8F) | ![Closed PRs](https://img.shields.io/github/issues-pr-closed/Soujanya2004/wanderlust-2024?color=20B2AA) | ![Languages](https://img.shields.io/github/languages/count/Soujanya2004/wanderlust-2024?color=20B2AA) | ![Contributors](https://img.shields.io/github/contributors/Soujanya2004/wanderlust-2024?color=00FA9A) |
 
 ## 📚 Table of Contents
+- [🤝 How to Contribute](#-how-to-contribute)
+- [🛠️ How to Set Up the Project Locally](#️-how-to-set-up-the-project-locally)
+- [📬 Contact](#-contact)
+- [👀 Our Valuable Contributors](#-our-valuable-contributors-)
+- [❤️ Made with Love by Soujanya C](#-made-with-love-by-soujanya-c)
 
-
-- 🤝 How to Contribute
-- 🛠️ How to Set Up the Project Locally
-- 📬 Contact
 
  <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
  
@@ -135,8 +146,13 @@ We welcome contributions to help improve **Wanderlust 2024**! 🚀 Here’s how 
        require('dotenv').config();
      }
      ```
+10. **Set Up Your Chatbase Account** ☁️
+    - Go to [Chatbase.co](https://www.chatbase.co/) and sign up for a free account. 🆓
+    - After logging in, Create your chatbot. 📊
+    - Copy your Scrtpt code snippet, You will need theie for the Chat bot implementation in `boilerplate.ejs` file. 🔐
 
-Feel free to raise issues and contribute to the repository! 🎉💻
+
+## Feel free to raise issues and contribute to the repository! 🎉💻
 
  <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
  
@@ -163,7 +179,7 @@ Every contribution, big or small, is valued and appreciated. Together, we can cr
 
 <div align="center">
   <a href="https://github.com/Soujanya2004/wanderlust-2024/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=Soujanya2004/wanderlust-2024&max=100" />
+    <img src="https://contrib.rocks/image?repo=Soujanya2004/wanderlust-2024&max=200" />
   </a>
 </div>
 
@@ -174,7 +190,7 @@ For questions or feedback, feel free to reach out via GitHub issues or contact t
  <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
  
 
-## ❤️ Made with Love by [Soujanya](https://github.com/Soujanya2004)
+## ❤️ Made with Love by [Soujanya C](https://github.com/Soujanya2004)
 
 <div align="center">
   <a href="https://github.com/Soujanya2004">
@@ -187,7 +203,12 @@ For questions or feedback, feel free to reach out via GitHub issues or contact t
 <div align="center">
   <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900" alt="Contributors Animation"/>
 </div>
-
  
+ 
+<div align="center">
+    <a href="#top">
+        <img src="https://img.shields.io/badge/Back%20to%20Top-000000?style=for-the-badge&logo=github&logoColor=white" alt="Back to Top">
+    </a>
+</div>
 
 

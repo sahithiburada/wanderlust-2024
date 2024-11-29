@@ -1,172 +1,208 @@
-<!-- @format -->
-
 <% layout("/layouts/boilerplate") %>
 
 <style>
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-	.contactContainer {
-		padding-top: 40px;
-		margin-top: -10px;
-		margin-left: -60px;
-		width: 100vw;
-		background-color: #495057;
-		color: white;
-	}
-	.bg-dark-section {
-		background-color: #212529;
-		border-radius: 0.5rem;
-	}
-	.contact-header {
-		font-size: 2rem;
-		font-weight: bold;
-		color: white;
-	}
-	.contact-description {
-		color: rgb(218, 218, 218);
-	}
-	.contact-form {
-		border: 1px solid #495057;
-		padding: 4rem;
-		border-radius: 0.5rem;
-		background-color: #343a40;
-        padding-bottom: 80px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-	}
-    .contact-form:hover{
-        transform: scale(1.02);
-        box-shadow: 0 8px 16px rgba(255, 193, 7, 0.2);
+  /* Styling for the Contact Section */
+  .bg-dark-section {
+    background-color: #212529;
+    border-radius: 0.5rem;
+  }
+  
+  .contact-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(74, 74, 74);
+    margin-bottom: .5rem;
+  }
+
+  .contact-description {
+    color: rgb(153, 153, 153);
+    margin-bottom: .5rem;
+    font-size: 1rem;
+  }
+
+  .contact-form {
+    background: url('cantact.jpg');
+    opacity: 0.8;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    box-shadow: 0 8px 10px rgba(33, 33, 33, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .contact-form:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(33, 33, 33, 0.2);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .contact-form {
+      padding: 3rem 1.5rem !important;
     }
-	.form-control:focus {
-        box-shadow: none;
-		border-color: #ffc107;
-	}
-	.btn-submit {
-		background-color: #ffc107;
-		color: #000;
-		font-weight: bold;
-		transition: all 0.3s;
-	}
-	.btn-submit:hover {
-		background-color: #ffca2c;
-	}
-	.contact-icon {
-		font-size: 1.5rem;
-		color: #ffc107;
-	}
-    .section{
-        padding-bottom: 150px;
+    .main-content {
+      padding: 0 !important;
     }
+  }
+
+  .form-control:focus {
+    box-shadow: none;
+    border-color: red;
+  }
+
+  .btn-danger {
+    background-color: red;
+    color: #ffffff;
+    font-weight: bold;
+    transition: all 0.3s;
+    padding: 8px 12px;
+    border-radius: 0.5rem;
+  }
+  .dark-mode {
+    .contact-header {
+      color: #ffffff;
+    }
+    .contact-form {
+      background-color: transparent;
+      box-shadow: 0 10px 16px #000;
+    }
+    .form-input .form-control {
+      background-color: transparent;
+      color: #ffffff;
+    }
+    .form-input .form-control::placeholder {
+      color: #ffffff;
+    }
+  }
+
+  .form-input {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Add a nice card effect to the form */
+  .contact-form {
+    padding: 35px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Placeholder Styling */
+  .form-input .form-control::placeholder {
+    color: #ffffff;
+  }
+
+  /* Add some additional padding */
+  .contact-container {
+    padding: 4rem 0;
+  }
+
+  .form-input input,
+  .form-input textarea {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #ffffff;
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: #ffffff;
+    transition: border-color 0.3s ease;
+  }
+  .form-input input:focus,
+  .form-input textarea:focus {
+    background-color: transparent; /* Makes background transparent on focus */
+    color: #ffffff; /* Keeps the text color visible */
+    border-bottom-color: red; /* Changes the bottom border color on focus */
+    outline: none; /* Removes the default outline */
+  }
 </style>
 
 <body>
-	<div class="contactContainer">
-		<div class="container my-5">
-			<div class="d-flex flex-column align-items-center section">
-				<div class="text-center">
-					<h1 class="contact-header mb-3">
-						Got an Idea? We’ve Got the Skills. Let’s Team Up
-					</h1>
-					<p class="contact-description">
-						Tell us more about yourself and what you’ve got in mind.
-					</p>
-				</div>
+  <div class="contactContainer">
+    <div class="container my-5">
+      <div class="d-flex flex-column align-items-center section">
+        <div class="text-center">
+          <h1 class="contact-header mb-3">
+            Got an Idea? We’ve Got the Skills. Let’s Team Up
+          </h1>
+          <p class="contact-description">
+            Tell us more about yourself and what you’ve got in mind.
+          </p>
+        </div>
 
-				<div class="row mt-5 w-100">
-					<!-- Contact Form -->
-					<div class="col-lg-6 mx-auto">
-						<form
-							class="contact-form"
-							method="POST"
-							action="/contact">
-							<!-- Name Fields -->
-							<div class="row mb-3">
-								<div class="col">
-									<label
-										for="firstname"
-										class="form-label"
-										>First Name</label
-									>
-									<input
-										type="text"
-										class="form-control"
-										name="firstname"
-										placeholder="Enter first name"
-										required />
-								</div>
-								<div class="col">
-									<label
-										for="lastName"
-										class="form-label"
-										>Last Name</label
-									>
-									<input
-										type="text"
-										class="form-control"
-										name="lastname"
-										placeholder="Enter last name" />
-								</div>
-							</div>
+        <div class="row mt-5 w-100">
+          <!-- Contact Form -->
+          <div class="col-12 col-lg-8 mx-auto main-content">
+            <form class="contact-form" method="POST" action="/contact">
+              <h2 class="mb-2" style="text-align: center; font-family: rakkas; color: aliceblue; font-weight: bold;">Git In Toutch</h2>
+              <!-- Name Fields -->
+              <div class="row mb-2 inputs">
+                <div class="col form-input">
+                  <!-- <label for="firstname" class="form-label">First Name</label> -->
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="firstname"
+                    placeholder="Enter first name"
+                    required
+                  />
+                </div>
+                <div class="col form-input">
+                  <!-- <label for="lastName" class="form-label">Last Name</label> -->
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="lastname"
+                    placeholder="Enter last name"
+                  />
+                </div>
+              </div>
 
-							<!-- Email -->
-							<div class="mb-3">
-								<label
-									for="email"
-									class="form-label"
-									>Email Address</label
-								>
-								<input
-									type="email"
-									class="form-control"
-									name="email"
-									placeholder="Enter email address"
-									required />
-							</div>
+              <!-- Email sub -->
+              <div class="row mb-2 inputs">
+                <!-- Subject -->
+                <div class="col mb-2 form-input">
+                  <!-- <label for="subject" class="form-label">Subject</label> -->
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="subject"
+                    placeholder="Enter your subject"
+                    required
+                  />
+                </div>
+                <!-- email -->
+                <div class="col mb-2 form-input">
+                  <!-- <label for="email" class="form-label">Email Address</label> -->
+                  <input
+                    type="email"
+                    class="form-control form-control-sm"
+                    name="email"
+                    placeholder="Enter email address"
+                    required
+                  />
+                </div>
+              </div>
 
-                            <!-- Subject -->
-							<div class="mb-3">
-								<label
-									for="subject"
-									class="form-label"
-									>Subject</label
-								>
-								<input
-									type="text"
-									class="form-control"
-									name="subject"
-									placeholder="Enter your subject"
-									required />
-							</div>
+              <!-- Message -->
+              <div class="mb-2 form-input">
+                <!-- <label for="message" class="form-label">Message</label> -->
+                <textarea
+                  class="form-control form-control-sm"
+                  name="message"
+                  rows="5"
+                  placeholder="Enter your message here...."
+                  required
+                ></textarea>
+              </div>
 
-							<!-- Message -->
-							<div class="mb-4">
-								<label
-									for="message"
-									class="form-label"
-									>Message</label
-								>
-								<textarea
-									class="form-control"
-									name="message"
-									rows="5"
-									placeholder="Enter your message here"
-									required></textarea>
-							</div>
-
-							<!-- Submit Button -->
-							<button
-								type="submit"
-								name="saveButton"
-								class="btn btn-submit w-100">
-								Send Message
-							</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-danger btn-submit w-100" name="saveButton">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>

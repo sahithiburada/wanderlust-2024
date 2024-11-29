@@ -2,13 +2,31 @@
 <br>
 <br>
 <style>
+ .signup-containers{
+        display: flex;
+        margin-top: 2rem;
+        margin-left: 2rem;
+    }
+    .sign-upimg{
+        width: 37rem;
+        height: 33rem;
+        transform: translateX(6rem);
+        filter: blur(1px);
+    }
     .form_body {
             background-color: #f1f1f1;
             border-radius: 5px;
             padding: 30px;
             box-shadow: 0 7px 15px rgba(113, 113, 113, 0.626);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+    }
+    .navigatee{
+        color: #797979;
+    }
+    .navigatee a{
+        color: #ff385c;
+    }
+
     /* Form Container - Floating Effect */
     .dark-mode{
         .form_body {
@@ -35,68 +53,136 @@
             color: #aaaaaa;
         }
     }
+    
+    /* Style for the form-control with toggle icon */
+    .signup_form {
+        position: relative;
+    }
+
+    /* Adjust the toggle icon position */
+    .signup_form .toggle-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    /* Shift the toggle icon up when feedback is displayed */
+    .signup_form .form-control.is-invalid ~ .toggle-icon,
+    .signup_form .form-control.is-valid ~ .toggle-icon {
+        top: 85% !important;
+    }
+
+
     </style>
 <div class="row">
-    <div class="col-4 mx-auto form_body">
-        <form method="POST" action="/signup" novalidate class="needs-validation">
+  <div class="signup-containers">
+     <div>
+        <img src="/background.png" class="sign-upimg" alt="image">
+    </div>
+    <div class="col-11 col-md-8 col-lg-4 mx-auto form_body">
+        <form method="POST" action="/signup" class="needs-validation" id="signupForm" novalidate>
             <div class="mb-3 signup_form">
                 <label for="username" class="form-label">Username</label>
-                <br>
                 <input type="text" name="username" placeholder="Username" class="form-control" required>
                 <div class="valid-feedback">
                      looks great!
                 </div>
                 <div class="invalid-feedback">
-                    Please enter valid username
+                    Please enter a valid username
                </div>
             </div>
             <div class="mb-3 signup_form">
                 <label for="email" class="form-label">Email Id</label>
-                <br>
                 <input type="email" name="email" placeholder="Email"  class="form-control"required>
                 <div class="valid-feedback">
                      looks great!
                 </div>
                 <div class="invalid-feedback">
-                    Please enter valid username
+                    Please enter a valid email
                </div>
             </div>
             <div class="mb-3 signup_form">
                 <label for="password" class="form-label">Password</label>
-                <br>
                 <div class="password-box">
-                    <input type="password" name="password" placeholder="Password"  class="form-control" required>
-                    <i id="togglePassword"  class="passkey passwordToggler fa fa-eye"></i> 
+                    <input type="password" name="password" placeholder="Password" class="form-control" id="password" required pattern="(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}">
+                    <i id="togglePassword" class="toggle-icon passkey passwordToggler fa fa-eye"></i> 
+                    
+                <div class="valid-feedback">Looks great!</div>
+                <div class="invalid-feedback">Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character.</div>
                 </div>
-                <div class="valid-feedback">
-                    looks great!
-               </div>
-               <div class="invalid-feedback">
-                   Please enter valid password
-              </div>
             </div>
             <div class="mb-3 signup_form">
-                <label for="password" class="form-label">Confirm Password</label>
-                <br>
+                <label for="cnfPassword" class="form-label">Confirm Password</label>
                 <div class="password-box">
-                    <input type="password" name="cnfPassword" placeholder="Password" class="form-control" required>
-                    <i id="togglePassword" class="cnf-passkey passwordToggler fa fa-eye"></i> 
+                    <input type="password" name="cnfPassword" placeholder="Confirm Password" class="form-control" id="cnfPassword" required>
+                    <i id="toggleConfirmPassword" class="toggle-icon cnf-passkey passwordToggler fa fa-eye"></i>
+                    
+                <div class="valid-feedback">Looks great!</div>
+                <div class="invalid-feedback">Passwords should match.</div>
                 </div>
-                <div class="valid-feedback">
-                    looks great!
-               </div>
-               <div class="invalid-feedback">
-                   Passwords Should match
-              </div>
             </div>
             <br>
             <div class="d-grid gap-2">
                 <button class="btn btn-danger" name="saveButton" type="submit">Sign up</button>
                 <!-- <a class="btn btn-secondary" name="saveButton" type="button">Go back</a> -->
                 <a href="/listing" class="btn btn-secondary" type="button">Go back</a>
-              </div>
+            </div>
+            <div class="mt-2 text-center navigatee">
+                Already have an account? <a href="/login">Login</a>
             </div>
         </form>
-        
-    </div>
+    </div>        
 </div>
+</div>
+
+<script>
+  document.getElementById('signupForm').addEventListener('submit', function (event) {
+    const form = event.target;
+    
+    // Prevent submission if the form is invalid
+    if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+        // Add Bootstrap validation classes
+        form.classList.add('was-validated');
+    });
+
+    // Password and Confirm Password Validation
+    const password = document.getElementById("password");
+    const cnfPassword = document.getElementById("cnfPassword");
+
+    function validatePasswordMatch() {
+        if (password.value && cnfPassword.value) {
+            if (password.value === cnfPassword.value) {
+                cnfPassword.classList.add("is-valid");
+                cnfPassword.classList.remove("is-invalid");
+                cnfPassword.setCustomValidity('');
+            } else {
+                cnfPassword.classList.add("is-invalid");
+                cnfPassword.classList.remove("is-valid");
+                cnfPassword.setCustomValidity("Passwords don't match");
+            }
+        } else {
+            cnfPassword.classList.remove("is-valid", "is-invalid");
+        }
+    }
+
+    // Event listeners for password fields to trigger validation feedback
+    password.addEventListener('input', () => {
+        if (password.checkValidity()) {
+            password.classList.add("is-valid");
+            password.classList.remove("is-invalid");
+        } else {
+            password.classList.add("is-invalid");
+            password.classList.remove("is-valid");
+        }
+        validatePasswordMatch();
+    });
+
+    cnfPassword.addEventListener('input', validatePasswordMatch);
+</script>

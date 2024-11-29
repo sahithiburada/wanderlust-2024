@@ -29,12 +29,19 @@ module.exports.saveRedirectUrl=(req,res,next) =>{
  }
 
  module.exports.isAuthor=async (req,res,next) => {
-    let {id,rid} =req.params;
-    const review = await reviews.findById(rid);
-    if (!review.author.equals(res.locals.currUser._id)) {
+    let {id,reviewId} =req.params;
+    const review = await reviews.findById(reviewId);
+    if (!review.author._id.equals(res.locals.currUser._id)) {
         req.flash('error', ERROR_NOT_AUTHOR);
         return res.redirect(`/listing/${id}`);
     }
     next();
  }
  
+//ADMIN ACESS
+ module.exports.isAdmin=async (req, res, next) =>{
+    if (req.isAuthenticated() && req.user.isAdmin) {
+        return next();
+    }
+    res.status(403).send("Access denied.");
+}
